@@ -1,0 +1,49 @@
+{% extends 'main.html' %}
+{% block PageName %}
+    Login
+{% endblock PageName %}
+{% load crispy_forms_tags %}
+{% block content %}
+<form novalidate method="POST" class="row g-3">
+    {% csrf_token %}
+    <div class="col-12">
+        {{ form|crispy }}
+        <small class="float-right mb-4 showPasswordToggle">SHOW PASSWORD</small>
+    </div>
+    <div class="col-12">
+        <button class="btn btn-outline-primary w-100" type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
+    </div>
+</form>
+{% endblock content %}
+
+
+{% block styles %}
+<style>
+.showPasswordToggle{
+    cursor: pointer;
+}
+.showPasswordToggle::selection {
+    color: none;
+    background: none;
+}
+</style>
+{% endblock styles %}
+
+{% block scripts %}
+<script>
+const password_field = document.querySelector('#id_password');
+const showPasswordToggle=document.querySelector('.showPasswordToggle');
+const handleToggleInput=(e)=>{
+    if(showPasswordToggle.textContent==="SHOW PASSWORD"){
+        password_field.setAttribute("type","text")
+        showPasswordToggle.textContent = "HIDE PASSWORD"
+
+    }else{
+        password_field.setAttribute("type","password")
+        showPasswordToggle.textContent = "SHOW PASSWORD";
+    }
+}
+showPasswordToggle.addEventListener('click',handleToggleInput);
+</script>
+{% endblock scripts %}
+    
